@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ctx.moveTo(100,0);
+ctx.font = "10px Arial";
+ctx.fillText("y",90,15);
+ctx.fillText("20",110,15);
+ctx.lineTo(100,100);
+ctx.fillText("-20",97,75);
+ctx.moveTo(0,50);
+ctx.fillText("-20",80,47);
+ctx.lineTo(200,50);
+ctx.fillText("x -20",110,47);
+
+ctx.stroke();
+</script>
+
+
+
+</body>
+</html>
+

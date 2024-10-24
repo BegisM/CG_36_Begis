@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ctx.beginPath();
+ctx.strokeStyle = "red"; 
+ctx.fillStyle = "yellow";
+ctx.lineWidth = "5";
+ctx.arc(95, 50, 40,0,Math.PI); //Half circle
+
+
+ctx.stroke();
+ctx.fill();
+</script>
+
+
+
+</body>
+</html>
+
