@@ -1,0 +1,16 @@
+The surface created by this program has a cylindrical shape. It is defined by the formula:
+R * cos(x), R * sin(x), y
+
+The range for x is [0, 2π], which forms a full circle in the x-y plane.
+The range for y is [-10, 10], which extends along the z-axis from -10 to 10.
+This creates a cylindrical surface that looks like a circle in the x-y plane with radius R and spans the z-axis from -10 to 10.
+
+--------------------------
+
+To make the surface easier to observe, the program uses the Pygame library to display and rotate the 3D surface. This lets you view the surface from different angles.
+
+Make sure to install the following before running the program:
+
+OpenGL version 1.2 or higher
+Pygame library
+See the "Installation" section for details.
