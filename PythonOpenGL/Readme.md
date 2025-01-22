@@ -1,65 +1,148 @@
+# Gaussian Elimination Method: Step-by-Step Guide
 
-to generate the points for the surface, showcasing a 3D representation of a cylinder.
+## Introduction
+Gaussian elimination is a mathematical procedure used to solve systems of linear equations. It involves row operations on the augmented matrix to bring it into a row-echelon form. From there, back-substitution is applied to find the solution.
 
----
+This guide provides a step-by-step walkthrough for solving the following system of linear equations using Gaussian elimination:
 
-## Formula Explanation
-1. **Representation**:
-   - The formula describes points on the surface of a **cylinder** in 3D space.
-   - It generates a **curved surface** in the X-Y plane (circular base) extended along the Z-axis.
+```
+2x - 3y = -14
+3x + 2y = 5
+```
 
-2. **Coordinate Breakdown**:
-   - **`R * cos(theta)`**: Represents the X-coordinate on a circle of radius `R`.
-   - **`R * sin(theta)`**: Represents the Y-coordinate on the same circle.
-   - Together, `(R * cos(theta), R * sin(theta))` forms points of a circle in the X-Y plane.
-   - **`y`**: Represents the Z-coordinate, defining the height of the cylinder.
+We will solve this system by performing five key steps and also visualize the process with slope representations.
 
-3. **Ranges**:
-   - **Angle `theta ∈ [0, 2π]`**:
-     - Covers the entire circumference of the circle in the X-Y plane, occupying all four quadrants.
-   - **Height `y ∈ [-10, 10]`**:
-     - Extends the cylinder vertically from `-10` to `10` along the Z-axis.
+### Prerequisites
+Ensure the following Python libraries are installed before proceeding:
+```bash
+pip install pygame PyOpenGL numpy
+```
 
 ---
 
-## Key Insights
-- **Circular Base**:
-  - The circular base of the cylinder occupies the X-Y coordinate system fully within a radius `R`, covering all four quadrants.
+## Steps
 
-- **Vertical Extension**:
-  - By varying `y` across its range, the formula extends the circle vertically, forming the cylindrical surface.
+### Step 1: Draw Initial Slopes
+#### Equations:
+1. **First equation:** `2x - 3y = -14`
+2. **Second equation:** `3x + 2y = 5`
 
-- **3D Visualization**:
-  - The cylinder is displayed in a 3D space, along with axes for better orientation.
+#### Range:
+We use the range \([-6, 6]\) for \(x\). By substituting the minimum and maximum values of \(x\), we calculate the endpoints of each slope:
 
----
+**For the first equation:**
+- When x = -6:
+   2*(-6) - 3y = -14 -> y = 2/3
+- When x = 6:
+  2*6 - 3y = -14 -> y = 26/3
 
-## Visualization Details
-- **Coordinate Axes**:
-  - Red: X-axis
-  - Green: Y-axis
-  - Blue: Z-axis
+Coordinates for the **first slope (red):** (-6, 2/3) and (6, 26/3).
 
-- **Surface**:
-  - A semi-transparent cylindrical surface with a radius of `R = 5.0`.
+**For the second equation:**
+- When x = -6:
+ 3*(-6) + 2y = 5 -> y = 11.5 
+- When x = 6:
+  3*6 + 2y = 5 -> y = -6.5 
 
-- **Camera Perspective**:
-  - The scene is set up with a camera view that allows rotation, providing a dynamic 3D perspective.
-
----
-
-### Requirements
-- Python 3.x
-- **PyGame**: For rendering and handling the game window.
-- **PyOpenGL (Version 1.2 or higher)**: For 3D graphics.
-- **NumPy**: For efficient numerical computations.
+Coordinates for the **second slope (green):** (-6, 11.5) and (6, -6.5).
 
 ---
 
-### Installation
-1. Install dependencies:
+### Step 2: Normalize the First Row
+Divide the first row by 2 to normalize it:
+
+**Original matrix representation:**
+```
+[ 2  -3 | -14 ]
+[ 3   2 |   5 ]
+```
+**After dividing the first row by 2:**
+```
+[ 1 -1.5 | -7 ]
+[ 3   2   |  5 ]
+```
+Equation now becomes:
+- First row: \(x - 1.5y = -7\)
+- Second row: \(3x + 2y = 5\)
+
+Since we only scaled the first row, the slope coordinates for the first equation remain unchanged.
+
+#### Eliminate the \(x\) coefficient in the second equation:
+Subtract \(3 \cdot\) (first row) from the second row:
+\[ 3x + 2y - 3(x - 1.5y) = 5 - 3(-7) \]
+\[ 6.5y = 26 \]
+
+**New matrix representation:**
+```
+[ 1 -1.5 | -7 ]
+[ 0  6.5 | 26 ]
+```
+
+---
+
+### Step 3: Solve for \(y\)
+Divide the second row by 6.5:
+ y = 26 / 6.5 => y = 4 
+
+**Updated matrix:**
+```
+[ 1 -1.5 | -7 ]
+[ 0   1  |  4 ]
+```
+
+#### Update Slope Coordinates
+The second equation now only depends on \(y\). Its slope becomes horizontal:
+- Coordinates: (-6, 4) and (6, 4).
+
+---
+
+### Step 4: Eliminate the \(y\) Coefficient in the First Row
+Eliminate the y coefficient from the first row by adding 1.5 (second row) to the first row:
+\[ x - 1.5y + 1.5y = -7 + 1.5(4) \]
+\[ x = -1 \]
+
+**Final matrix representation:**
+```
+[ 1  0 | -1 ]
+[ 0  1 |  4 ]
+```
+
+---
+
+### Step 5: Final Coordinates
+With \(x = -1\) and \(y = 4\), update the first slope to reflect these values. The new slope coordinates are:
+- (-1, -6)
+- (-1, 6)
+
+The solution to the system of equations is:
+\[ x = -1, y = 4 \]
+
+---
+
+## Summary
+1. Install necessary libraries with:
    ```bash
-   pip install pygame pyopengl numpy
-2. For **Linux**, you can use your package manager to install OpenGL:
-   ```bash
-   sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+   pip install pygame PyOpenGL numpy
+   ```
+2. Visualize the system of equations as slopes.
+3. Perform Gaussian elimination step-by-step to solve the system:
+   - Normalize rows.
+   - Eliminate variables.
+   - Update coordinates accordingly.
+
+---
+
+### Example Output
+**Initial Matrix:**
+```
+[ 2  -3 | -14 ]
+[ 3   2 |   5 ]
+```
+**Final Matrix:**
+```
+[ 1  0 | -1 ]
+[ 0  1 |  4 ]
+```
+**Solution:**
+\[ x = -1, y = 4 \]
+
