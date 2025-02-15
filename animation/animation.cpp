@@ -16,6 +16,8 @@ double pi = 3.14159265359;
 // Ranges
 double x1_min = 0, x1_max = 2 * pi, dx1 = .1;
 double x2_min = -10, x2_max = 10, dx2 = .1; // height of the cylinder
+float start_vector_field = 10.0;
+float length = 10.0;
 
 double r = 10; // radius of the cylinder
 
@@ -107,8 +109,8 @@ void display() {
     // X axis
     glLineWidth(5.0);
     glColor3f(1.0, 0.0, 0.0);
-    float V1[3] = {-10.0, 0.0f, 0.0f};
-    float V2[3] = {10.0, 0.0f, 0.0f};
+    float V1[3] = {-1.0f * start_vector_field, 0.0f, 0.0f};
+    float V2[3] = {start_vector_field, 0.0f, 0.0f};
 
     Draw_line(V1, V2);
 
@@ -116,22 +118,22 @@ void display() {
     // Y axis
     glColor3f(0.0, 1.0, 0.0);
     V1[0] = 0.0f;
-    V1[1] = -10.0;
+    V1[1] = -1.0 * start_vector_field;
     V2[0] = 0.0f;
-    V2[1] = 10.0;
+    V2[1] = start_vector_field;
     Draw_line(V1, V2);
 
     // Hide x axis between -25 to -10 and 10 to 25 after some time
     glLineWidth(4.0);
     glColor4f(1.0, 0.0, 0.0, 1 - alpha);
     if (alpha <= 0.5) {
-        V1[0] = -25.0;
+        V1[0] = -1.0 * start_vector_field;
         V1[1] = 0.0f;
-        V2[0] = -10.0;
+        V2[0] = -1.0 * (start_vector_field + length);
         V2[1] = 0.0f;
         Draw_line(V1, V2);
-        V1[0] = 10.0;
-        V2[0] = 25.0;
+        V1[0] = start_vector_field;
+        V2[0] = start_vector_field + length;
         Draw_line(V1, V2);
     }
 
@@ -139,12 +141,33 @@ void display() {
     glColor4f(0.0, 1.0, 0.0, 1 - alpha);
     if (alpha <= 0.5) {
         V1[0] = 0.0f;
-        V1[1] = -25.0;
+        V1[1] = -1.0*start_vector_field;
         V2[0] = 0.0f;
-        V2[1] = -10.0;
+        V2[1] = -1*(start_vector_field + length);
         Draw_line(V1, V2);
-        V1[1] = 25.0;
-        V2[1] = 10.0;
+        V1[1] = start_vector_field;
+        V2[1] = start_vector_field + length;
+        Draw_line(V1, V2);
+    }
+
+    if (start_vector_field + length < 25){
+        glColor3f(1.0, 0.0, 0.0);
+        V1[0] = -1.0 * (start_vector_field + length);
+        V1[1] = 0.0f;
+        V2[0] = -25.0;
+        V2[1] = 0.0f;
+        Draw_line(V1, V2);
+        V1[0] = (start_vector_field + length);
+        V2[0] = 25;
+        Draw_line(V1, V2);
+        glColor3f(0.0, 1.0, 0.0);
+        V1[0] = 0.0f;
+        V1[1] = -1.0*(start_vector_field + length);
+        V2[0] = 0.0f;
+        V2[1] = -25.0;
+        Draw_line(V1, V2);
+        V1[1] = (start_vector_field + length);
+        V2[1] = 25;
         Draw_line(V1, V2);
     }
 
@@ -160,8 +183,8 @@ void display() {
 
     // Animate vector field once alpha reaches threshold
     if (alpha > 0.5) {
-        draw_y_field(10.0, 20.0, alpha);
-        draw_x_field(10.0, 20.0, alpha);
+        draw_y_field(start_vector_field, length, alpha);
+        draw_x_field(start_vector_field, length, alpha);
     }
 
     glPopMatrix();

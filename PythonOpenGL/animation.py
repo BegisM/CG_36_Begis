@@ -12,6 +12,7 @@ pi = 3.14159265359
 x1_min, x1_max, dx1 = 0, 2 * pi, 0.1
 x2_min, x2_max, dx2 = -10, 10, 0.1  # height of the cylinder
 r = 10  # radius of the cylinder
+length_v, start_v = 10.0, 10.0
 
 alpha = 0.0  # Global transparency parameter
 
@@ -107,35 +108,52 @@ def display():
     # X axis
     glLineWidth(5.0)
     glColor3f(1.0, 0.0, 0.0)
-    V1 = [-10.0, 0.0, 0.0]
-    V2 = [10.0, 0.0, 0.0]
+    V1 = [-1.0 * start_v, 0.0, 0.0]
+    V2 = [start_v, 0.0, 0.0]
     Draw_line(V1, V2)
 
     # Y axis
     glColor3f(0.0, 1.0, 0.0)
-    V1 = [0.0, -10.0, 0.0]
-    V2 = [0.0, 10.0, 0.0]
+    V1 = [0.0, -1.0 * start_v, 0.0]
+    V2 = [0.0, start_v, 0.0]
     Draw_line(V1, V2)
 
     # Hide x axis between -25 to -10 and 10 to 25 after some time
     glLineWidth(4.0)
     glColor4f(1.0, 0.0, 0.0, 1 - alpha)
     if alpha <= 0.5:
-        V1 = [-25.0, 0.0, 0.0]
-        V2 = [-10.0, 0.0, 0.0]
+        V1 = [-1.0 * start_v, 0.0, 0.0]
+        V2 = [-1.0 * (start_v + length_v), 0.0, 0.0]
         Draw_line(V1, V2)
-        V1 = [10.0, 0.0, 0.0]
-        V2 = [25.0, 0.0, 0.0]
+        V1 = [start_v, 0.0, 0.0]
+        V2 = [start_v + length_v, 0.0, 0.0]
         Draw_line(V1, V2)
 
     # Hide y axis between -25 to -10 and 10 to 25 after some time
     glColor4f(0.0, 1.0, 0.0, 1 - alpha)
     if alpha <= 0.5:
-        V1 = [0.0, -25.0, 0.0]
-        V2 = [0.0, -10.0, 0.0]
+        V1 = [0.0, -1.0 * start_v, 0.0]
+        V2 = [0.0, -1.0 * (start_v + length_v), 0.0]
         Draw_line(V1, V2)
-        V1 = [0.0, 25.0, 0.0]
-        V2 = [0.0, 10.0, 0.0]
+        V1 = [0.0, start_v, 0.0]
+        V2 = [0.0, start_v + length_v, 0.0]
+        Draw_line(V1, V2)
+
+
+    if start_v + length_v < 25:
+        glColor3f(0.0, 1.0, 0.0)
+        V1 = [0.0, -1.0 * (start_v + length_v), 0.0]
+        V2 = [0.0, -25.0, 0.0]
+        Draw_line(V1, V2)
+        V1 = [0.0, start_v + length_v, 0.0]
+        V2 = [0.0, 25, 0.0]
+        Draw_line(V1, V2)
+        glColor3f(1.0, 0.0, 0.0)
+        V1 = [-1.0 * (start_v + length_v), 0.0, 0.0]
+        V2 = [-25.0, 0.0, 0.0]
+        Draw_line(V1, V2)
+        V1 = [start_v + length_v, 0.0, 0.0]
+        V2 = [25, 0.0, 0.0]
         Draw_line(V1, V2)
 
     # Z axis
@@ -148,8 +166,8 @@ def display():
 
     # Animate vector field once alpha reaches threshold
     if alpha > 0.5:
-        draw_y_field(10.0, 20.0, alpha)
-        draw_x_field(10.0, 20.0, alpha)
+        draw_y_field(start_v, length_v, alpha)
+        draw_x_field(start_v, length_v, alpha)
 
     glPopMatrix()
 
