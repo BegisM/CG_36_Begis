@@ -1,3 +1,0 @@
-In each Scene i compiled for Windows (.exe file) and for Linux debian without any extension.
-The pictures dimension is 800x600 to be bigger and more visible. 
-But the in cpp file code. The dimenstions are 320x240 as it is written in Description of a task.
