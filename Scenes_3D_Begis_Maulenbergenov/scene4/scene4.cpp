@@ -190,7 +190,6 @@ void Draw_vectors_w(){
         glEnd();
 
     }
-
 }
 
 // Function to initialize OpenGL
